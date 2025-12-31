@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy New Year My Love ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at top, #1b1f3b, #050510);
+    font-family: 'Segoe UI', sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Glass card */
+.card {
+    background: rgba(20, 20, 40, 0.75);
+    backdrop-filter: blur(8px);
+    padding: 25px;
+    border-radius: 22px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 0 40px rgba(255, 0, 80, 0.25);
+    z-index: 2;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #ff6b9d;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e0e0ff;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ff1744, #ff4da6);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 0, 100, 0.5);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+/* Fireworks canvas */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div class="card">
+    <h1>🎆 Happy New Year 🎆</h1>
+    <h2>My Small Baby (Diku) ❤️</h2>
+    <p>
+        Under the midnight sky, every firework reminds me of you ✨  
+        Thank you for being my calm in chaos and my light in darkness.  
+        Here’s to another beautiful year together 💖.She is my small, adorable baby — cute chubby cheeks, short hair, almond-shaped eyes, and that killer expression that melts my heart 😘❤️
+Her calm nature gives me peace, and her presence makes my life complete.
+She is the best girl I have ever met, and loving her is the easiest thing I’ve ever done.
+I want her support forever, and I promise to always respect her, protect her, and love her endlessly.
+    </p>
+    <button onclick="surprise()">Tap for Surprise 💌</button>
+</div>
+
+<script>
+// Surprise message
+function surprise() {
+    alert("Happy New Year, my love ❤️\nYou are my forever and always ✨");
+}
+
+// Fireworks animation
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+let fireworks = [];
+
+function createFirework() {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height / 2;
+    const particles = [];
+
+    for (let i = 0; i < 45; i++) {
+        particles.push({
+            x,
+            y,
+            angle: Math.random() * Math.PI * 2,
+            speed: Math.random() * 4 + 2,
+            alpha: 1
+        });
+    }
+    fireworks.push(particles);
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    fireworks.forEach((particles, index) => {
+        particles.forEach(p => {
+            p.x += Math.cos(p.angle) * p.speed;
+            p.y += Math.sin(p.angle) * p.speed;
+            p.alpha -= 0.015;
+
+            ctx.fillStyle = `rgba(255, 120, 200, ${p.alpha})`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        if (particles[0].alpha <= 0) fireworks.splice(index, 1);
+    });
+
+    requestAnimationFrame(animate);
+}
+
+setInterval(createFirework, 900);
+animate();
+</script>
+
+</body>
+</html>
